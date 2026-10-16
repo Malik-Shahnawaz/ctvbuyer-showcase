@@ -28,7 +28,8 @@
     number of hyphen-joined words (client, client-name,
     client-name-surname), the slug six letters and digits (getClientSlugFromPath, below), where the
     component's tail is eight. The words before the slug name the client,
-    as there. GitHub Pages has no file at
+    as there, and the brief is filed under the whole last part, lowercased
+    (client-name-a8kx92), as the component files it. GitHub Pages has no file at
     /welcome/…, so it serves 404.html, which fetches this page and draws it
     in place, leaving the address in the bar as it was opened. Opened as
     itself, or at /welcome/, the page welcomes a guest.
@@ -1937,11 +1938,12 @@ function getClientSlugFromPath(pathname = window.location.pathname) {
        THE CLIENT
        Named by the page's address, so one page serves every
        client: the words before the slug are the name, unless
-       CONFIG.clientName says otherwise. The slug keys the
-       brief's cache on this device (and, once there is an
-       Endpoint, the brief on the server), so two clients on
-       one device keep two briefs. With no slug the page
-       welcomes a guest.
+       CONFIG.clientName says otherwise. The whole last part,
+       lowercased (CLIENT_KEY), keys the brief on the server
+       and its cache on this device, as the component's slug
+       does, so the function finds the same draft from either
+       page and two clients on one device keep two briefs.
+       With no slug the page welcomes a guest.
     ------------------------------------------------------- */
 
     const GUEST = "Dear Guest"
@@ -1952,6 +1954,11 @@ function getClientSlugFromPath(pathname = window.location.pathname) {
 
     /* The address's last part, "client-name-a8Kx92", on a client's page. */
     const CLIENT_PAGE = CLIENT_SLUG ? window.location.pathname.split("/").pop() : ""
+
+    /* "client-name-a8kx92": what the function files the brief under. The
+       function lowercases a slug, so the cache key is lowercased too, and
+       /welcome/Client-Name-A8KX92 is the same client's page. */
+    const CLIENT_KEY = CLIENT_PAGE.toLowerCase()
 
     /* "client-name-a8Kx92" → "Client Name", "client-name-surname-a8Kx92" →
        "Client Name Surname": the words before "-{slug}". */
@@ -2522,7 +2529,7 @@ function getClientSlugFromPath(pathname = window.location.pathname) {
         /* CONFIG's name for the client when it has one, else the one read
            off the address. */
         const name = clientName.trim() || CLIENT_NAME || GUEST
-        const slug = CLIENT_SLUG ?? ""
+        const slug = CLIENT_KEY
 
         const current = Math.max(
             0,
