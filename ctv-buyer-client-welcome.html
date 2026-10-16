@@ -24,8 +24,9 @@
     belongs here too, and the other way round. Framer's property controls
     are the CONFIG block at the top of the script below.
 
-    The address: a client's page is /welcome/client-name-{slug} or
-    /welcome/client-{slug}, the slug six letters and digits (getClientSlugFromPath, below), where the
+    The address: a client's page is /welcome/{name}-{slug}, the name any
+    number of hyphen-joined words (client, client-name,
+    client-name-surname), the slug six letters and digits (getClientSlugFromPath, below), where the
     component's tail is eight. The words before the slug name the client,
     as there. GitHub Pages has no file at
     /welcome/…, so it serves 404.html, which fetches this page and draws it
@@ -1586,7 +1587,8 @@ const CONFIG = {
     stage: "Brief",
 
     /* Empty, the name is read off the address: /welcome/client-name-a8Kx92
-       welcomes Client Name, /welcome/client-a8Kx92 welcomes Client. */
+       welcomes Client Name, /welcome/client-name-surname-a8Kx92 welcomes
+       Client Name Surname. */
     clientName: "",
 
     accentColor: "#2ee6c4",
@@ -1682,17 +1684,19 @@ const CONFIG = {
 
 /* -------------------------------------------------------
    THE CLIENT'S ADDRESS
-   /welcome/client-name-{slug} or /welcome/client-{slug},
-   the slug exactly six letters and digits. Nothing else
-   is a client's address: not a shorter or longer slug,
-   not a trailing slash, not another folder. Outside the
-   page's own scope, so it can be tried from the console.
+   /welcome/{name}-{slug}: the name one or more words of
+   letters and digits joined by hyphens (client,
+   client-name, client-name-surname), the slug exactly six
+   letters and digits. Nothing else is a client's address:
+   not a shorter or longer slug, no name, not a trailing
+   slash, not another folder. Outside the page's own
+   scope, so it can be tried from the console.
 ------------------------------------------------------- */
 
-const CLIENT_PATH = /^\/welcome\/client-(?:name-)?([A-Za-z0-9]{6})$/
+const CLIENT_PATH = /^\/welcome\/(?:[A-Za-z0-9]+-)+([A-Za-z0-9]{6})$/
 
-/* "/welcome/client-name-a8Kx92" and "/welcome/client-a8Kx92" → "a8Kx92",
-   its case kept; null for any other path. */
+/* "/welcome/client-name-a8Kx92", "/welcome/client-a8Kx92" → "a8Kx92", its
+   case kept; null for any other path. */
 function getClientSlugFromPath(pathname = window.location.pathname) {
     const match = CLIENT_PATH.exec(pathname)
     return match ? match[1] : null
@@ -1722,7 +1726,7 @@ function getClientSlugFromPath(pathname = window.location.pathname) {
     ------------------------------------------------------- */
 
     /* /welcome, /welcome/ or a client's address, at the end of the path. */
-    const WELCOME_PATH = /\/welcome(?:\/(?:client-(?:name-)?[A-Za-z0-9]{6})?)?$/
+    const WELCOME_PATH = /\/welcome(?:\/(?:(?:[A-Za-z0-9]+-)+[A-Za-z0-9]{6})?)?$/
 
     /* Where the page is served from: the folder of this file, or, at a
        welcome address, the folder above welcome/. */
@@ -1946,12 +1950,11 @@ function getClientSlugFromPath(pathname = window.location.pathname) {
        to match, so the page never shows a guest greeting first. */
     const CLIENT_SLUG = getClientSlugFromPath()
 
-    /* The address's last part, "client-name-a8Kx92" or "client-a8Kx92", on
-       a client's page. */
+    /* The address's last part, "client-name-a8Kx92", on a client's page. */
     const CLIENT_PAGE = CLIENT_SLUG ? window.location.pathname.split("/").pop() : ""
 
-    /* "client-name-a8Kx92" → "Client Name", "client-a8Kx92" → "Client": the
-       words before "-{slug}". */
+    /* "client-name-a8Kx92" → "Client Name", "client-name-surname-a8Kx92" →
+       "Client Name Surname": the words before "-{slug}". */
     const CLIENT_NAME = CLIENT_SLUG
         ? CLIENT_PAGE.slice(0, -(CLIENT_SLUG.length + 1))
               .toLowerCase()

@@ -8,15 +8,16 @@
 <script>
 /* GitHub Pages answers every address it has no file for with this page.
    The welcome addresses have no file: /welcome/, the guest's, and a
-   client's /welcome/client-name-{slug} or /welcome/client-{slug}, the slug
-   exactly six letters and digits (CLIENT_PATH in the welcome page). For
-   those, the welcome page is fetched and drawn here in place of this one,
-   never redirected to, so the bar keeps the address the visitor opened and
-   the page reads the slug off it. Anything else, /welcome/client-name-abc
-   among it, is a real 404, below. */
+   client's /welcome/{name}-{slug}: the name one or more words of letters
+   and digits joined by hyphens (client, client-name, client-name-surname),
+   the slug exactly six letters and digits (CLIENT_PATH in the welcome
+   page). For those, the welcome page is fetched and drawn here in place of
+   this one, never redirected to, so the bar keeps the address the visitor
+   opened and the page reads the slug off it. Anything else,
+   /welcome/client-name-abc among it, is a real 404, below. */
 (function () {
     var path = window.location.pathname
-    if (!/^\/welcome\/?$/.test(path) && !/^\/welcome\/client-(?:name-)?[A-Za-z0-9]{6}$/.test(path)) return
+    if (!/^\/welcome\/?$/.test(path) && !/^\/welcome\/(?:[A-Za-z0-9]+-)+[A-Za-z0-9]{6}$/.test(path)) return
 
     var root = document.documentElement
     /* Hidden until the welcome page takes its place, so a client never sees
