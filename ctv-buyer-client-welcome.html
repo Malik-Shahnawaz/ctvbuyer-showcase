@@ -13,7 +13,7 @@
     CLIENT WELCOME — CTVBuyer
 
     The CTVBuyer copy of creative_directions/client_welcome.tsx, for GitHub
-    Pages. The behaviour is that component's, line for line: the four
+    Pages. The behaviour is that component's, line for line: the three
     stages, the brief written into Supabase as the client goes (load, save,
     upload, sign, confirm, remove, submit, create, through the client-brief
     edge function), the cache on the device, the review blocks and the
@@ -60,9 +60,6 @@ body {
     --cw-rule: rgba(255, 255, 255, 0.18);
     --cw-surface: rgba(3, 25, 44, 0.55);
     --cw-field: rgba(3, 25, 44, 0.42);
-    /* The sketch panels are paper on the sheet, with their number in ink. */
-    --cw-paper: #e9edf5;
-    --cw-paper-ink: #3d5274;
     --cw-sans: "Plus Jakarta Sans", Helvetica, sans-serif;
     --cw-mono: "JetBrains Mono", monospace;
 
@@ -788,7 +785,7 @@ body {
     height: 14px;
 }
 
-/* 03 DIRECTION · BUILD · DELIVER */
+/* 03 REVIEW · DELIVER */
 .cd-welcome .cw-stage-section {
     display: flex;
     flex-direction: column;
@@ -809,95 +806,6 @@ body {
     font-size: 19px;
     line-height: 1.5;
     color: var(--cw-fg);
-}
-
-.cd-welcome .cw-shots {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-}
-
-.cd-welcome .cw-shot {
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-    gap: 12px;
-    width: 100%;
-}
-
-.cd-welcome .cw-panel {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    border: 1px dashed var(--cw-dash);
-    border-radius: 6px;
-    background: var(--cw-paper);
-    color: var(--cw-paper-ink);
-    font-family: var(--cw-mono);
-    font-size: 13px;
-    letter-spacing: 0.12em;
-}
-
-.cd-welcome .cw-panel[data-image="true"] {
-    border-style: solid;
-    border-color: var(--cw-rule);
-    background: var(--cw-surface);
-}
-
-.cd-welcome .cw-panel img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.cd-welcome .cw-shot-caption {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.cd-welcome .cw-shot-label {
-    font-family: var(--cw-mono);
-    font-size: 13px;
-    letter-spacing: 0.12em;
-    color: var(--cw-muted);
-}
-
-.cd-welcome .cw-shot-action {
-    font-size: 16px;
-    line-height: 1.45;
-    color: var(--cw-light);
-}
-
-.cd-welcome .cw-lists {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 28px;
-    max-width: 1000px;
-}
-
-.cd-welcome .cw-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.cd-welcome .cw-list-label {
-    font-family: var(--cw-mono);
-    font-size: 13px;
-    letter-spacing: 0.12em;
-    color: var(--cw-soft);
-}
-
-.cd-welcome .cw-list-item {
-    padding: 10px 0;
-    border-top: 1px solid var(--cw-rule);
-    font-size: 17px;
-    line-height: 1.45;
 }
 
 .cd-welcome .cw-review {
@@ -1207,7 +1115,7 @@ body {
 
     .cd-welcome .cw-stage-grid {
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: clamp(20px, 100cqw * 32 / 1200, 32px);
     }
 
@@ -1400,40 +1308,6 @@ body {
         font-size: clamp(19px, 100cqw * 24 / 1200, 24px);
     }
 
-    /* A row that scrolls sideways, as on the board: six 380px panels
-       are wider than any column. */
-    .cd-welcome .cw-shots {
-        flex-direction: row;
-        gap: 24px;
-        padding-bottom: 12px;
-        overflow-x: auto;
-    }
-
-    .cd-welcome .cw-shot {
-        width: clamp(280px, 100cqw * 380 / 1200, 380px);
-    }
-
-    .cd-welcome .cw-shot-label {
-        font-size: 15px;
-    }
-
-    .cd-welcome .cw-shot-action {
-        font-size: 18px;
-    }
-
-    .cd-welcome .cw-lists {
-        grid-template-columns: 1fr 1fr;
-        gap: clamp(28px, 100cqw * 64 / 1200, 64px);
-    }
-
-    .cd-welcome .cw-list-label {
-        font-size: 15px;
-    }
-
-    .cd-welcome .cw-list-item {
-        font-size: 19px;
-    }
-
     .cd-welcome .cw-review {
         max-width: 820px;
     }
@@ -1583,7 +1457,7 @@ body {
 ------------------------------------------------------- */
 
 const CONFIG = {
-    /* Where the project is: "Brief", "Direction", "Build" or "Deliver".
+    /* Where the project is: "Brief", "Review" or "Deliver".
        Earlier stages fold into the record above the current one. */
     stage: "Brief",
 
@@ -1596,9 +1470,7 @@ const CONFIG = {
 
     /* The director's note at each stage. */
     notes: {
-        direction:
-            "You said 'quiet luxury' — that's the whole spot. We open on the desert at first light and let the resort wake up around the viewer, one quiet room at a time. No voiceover until the last five seconds.",
-        build: "Here's the first full cut. The color isn't final. Watch the pacing, and tell me where it drags.",
+        review: "Here's the first full cut. The color isn't final. Watch the pacing, and tell me where it drags.",
         deliver: "It's finished, and it's yours. Everything you need to put it on air is below.",
     },
 
@@ -1607,12 +1479,11 @@ const CONFIG = {
         /* false: the approve button is locked and the page says who holds
            the link. */
         hasLink: true,
-        /* Shown in the record once Direction, then the cut, is approved. */
-        directionDate: "[DATE]",
+        /* Shown in the record once the cut is approved. */
         cutDate: "[DATE]",
     },
 
-    /* The review cut at Build. video plays in the frame when the play
+    /* The cut under review at Review. video plays in the frame when the play
        button is pressed; without one the frame stays as drawn. poster is
        a still shown before play: { src, srcSet, alt }. */
     cut: {
@@ -1621,17 +1492,6 @@ const CONFIG = {
         video: "",
         poster: null,
     },
-
-    /* The shot plan at Direction. image is the 16:9 sketch,
-       { src, srcSet, alt }; without one the panel shows its number. */
-    shots: [
-        { duration: "0:05", action: "First light over the ridge. The resort is still asleep." },
-        { duration: "0:05", action: "Sun finds the pool. One lounger, towel folded." },
-        { duration: "0:05", action: "Suite curtains lift in the morning air." },
-        { duration: "0:05", action: "Dining room lamps come on, one by one." },
-        { duration: "0:05", action: "Fire pit at dusk. Two guests, seen from behind." },
-        { duration: "0:05", action: "End card: Arizona Biltmore." },
-    ],
 
     /* The finished files at Deliver. A *File is the download's URL; without
        one the DOWNLOAD pill keeps its place but isn't a link. */
@@ -1753,21 +1613,25 @@ function getClientSlugFromPath(pathname = window.location.pathname) {
     const STAGES = [
         {
             title: "Brief",
-            body: "You share your brand files, photos, and goals. We confirm exactly what we are making.",
+            body: "You share your brand files, photos, and goals. We confirm exactly what we're making.",
         },
         {
-            title: "Direction",
-            body: "We show you the look and the shot plan. You approve it before we build anything.",
-        },
-        {
-            title: "Build",
-            body: "We create the spot around your real product or property, with set review rounds.",
+            title: "Review",
+            body: "We show you the work and refine it with your feedback, round by round, until you're satisfied.",
         },
         {
             title: "Deliver",
-            body: "Final edit, color, and sound. You get finished files, ready to air on CTV.",
+            body: "Your finished spot, ready to air on CTV. This page becomes the permanent record of exactly what you approved.",
         },
     ]
+
+    /* The stages before Review took the place of Direction and Build. A
+       CONFIG still set to either is under review, not back at the brief:
+       falling to Brief would hand a client mid-project an open brief. */
+    const LEGACY_STAGES = {
+        Direction: "Review",
+        Build: "Review",
+    }
 
     /* Mirrors NEEDS in client_welcome.tsx, and through it UPLOAD_ITEMS,
        ANSWERS and FIRST_ITEM in the edge function: an id or a type changed
@@ -1838,45 +1702,14 @@ function getClientSlugFromPath(pathname = window.location.pathname) {
         },
     ]
 
-    const FIXED_AND_OPEN = [
-        {
-            label: "WHAT'S FIXED",
-            items: [
-                "Your property, exactly as it is",
-                "A quiet, unhurried tone",
-                "The end card with your name",
-            ],
-        },
-        {
-            label: "WHAT YOU CAN STILL CHANGE",
-            items: [
-                "The order of the shots",
-                "Which shot opens the spot",
-                "The final line",
-            ],
-        },
-    ]
-
     const DEFAULT_NOTES = {
-        direction:
-            "You said 'quiet luxury' — that's the whole spot. We open on the desert at first light and let the resort wake up around the viewer, one quiet room at a time. No voiceover until the last five seconds.",
-        build: "Here's the first full cut. The color isn't final. Watch the pacing, and tell me where it drags.",
+        review: "Here's the first full cut. The color isn't final. Watch the pacing, and tell me where it drags.",
         deliver: "It's finished, and it's yours. Everything you need to put it on air is below.",
     }
-
-    const DEFAULT_SHOTS = [
-        { duration: "0:05", action: "First light over the ridge. The resort is still asleep." },
-        { duration: "0:05", action: "Sun finds the pool. One lounger, towel folded." },
-        { duration: "0:05", action: "Suite curtains lift in the morning air." },
-        { duration: "0:05", action: "Dining room lamps come on, one by one." },
-        { duration: "0:05", action: "Fire pit at dusk. Two guests, seen from behind." },
-        { duration: "0:05", action: "End card: Arizona Biltmore." },
-    ]
 
     const DEFAULT_APPROVER = {
         name: "[APPROVER NAME]",
         hasLink: true,
-        directionDate: "[DATE]",
         cutDate: "[DATE]",
     }
 
@@ -2516,7 +2349,6 @@ function getClientSlugFromPath(pathname = window.location.pathname) {
             notes,
             approver,
             cut,
-            shots = DEFAULT_SHOTS,
             delivery,
             savesProgress = true,
             submission,
@@ -2533,7 +2365,7 @@ function getClientSlugFromPath(pathname = window.location.pathname) {
 
         const current = Math.max(
             0,
-            STAGES.findIndex((s) => s.title === stage)
+            STAGES.findIndex((s) => s.title === (LEGACY_STAGES[stage] ?? stage))
         )
 
         /* An emptied value falls back to the board's text rather than
@@ -2558,7 +2390,6 @@ function getClientSlugFromPath(pathname = window.location.pathname) {
 
         const record = [
             `BRIEF RECEIVED · ${NEEDS.length} OF ${NEEDS.length}`,
-            `DIRECTION APPROVED · ${approver?.directionDate || DEFAULT_APPROVER.directionDate} · ${approverName.toUpperCase()}`,
             `CUT APPROVED · ROUND ${cut?.round ?? DEFAULT_CUT.round} OF ${cut?.rounds ?? DEFAULT_CUT.rounds} · ${approver?.cutDate || DEFAULT_APPROVER.cutDate}`,
         ].slice(0, current)
 
@@ -2601,7 +2432,7 @@ function getClientSlugFromPath(pathname = window.location.pathname) {
                             "div",
                             { className: "cw-head" },
                             h(Eyebrow, { num: "02", label: "YOUR PROJECT" }),
-                            h("h2", { className: "cw-h2" }, "Four stages. You approve each one.")
+                            h("h2", { className: "cw-h2" }, "Three stages. You approve each one.")
                         ),
                         h(
                             "div",
@@ -2642,18 +2473,8 @@ function getClientSlugFromPath(pathname = window.location.pathname) {
                           ),
 
                     current === 1 &&
-                        h(DirectionSection, {
-                            note: notes?.direction || DEFAULT_NOTES.direction,
-                            shots,
-                            approverName,
-                            hasLink: approverHasLink,
-                            approved,
-                            onApprove: () => setApproved(true),
-                        }),
-
-                    current === 2 &&
-                        h(BuildSection, {
-                            note: notes?.build || DEFAULT_NOTES.build,
+                        h(ReviewSection, {
+                            note: notes?.review || DEFAULT_NOTES.review,
                             cut,
                             approverName,
                             hasLink: approverHasLink,
@@ -2661,7 +2482,7 @@ function getClientSlugFromPath(pathname = window.location.pathname) {
                             onApprove: () => setApproved(true),
                         }),
 
-                    current === 3 &&
+                    current === 2 &&
                         h(DeliverSection, {
                             note: notes?.deliver || DEFAULT_NOTES.deliver,
                             delivery,
@@ -3956,8 +3777,7 @@ function getClientSlugFromPath(pathname = window.location.pathname) {
     }
 
     /* -------------------------------------------------------
-       REVIEW — the note box and approval, shared by Direction
-       and Build
+       REVIEW BLOCK — the note box and approval
     ------------------------------------------------------- */
 
     function ReviewBlock({ label, placeholder, cta, after, approverName, hasLink, approved, onApprove }) {
@@ -3993,78 +3813,10 @@ function getClientSlugFromPath(pathname = window.location.pathname) {
     }
 
     /* -------------------------------------------------------
-       DIRECTION — the look and the shot plan
+       REVIEW — the cut, round by round
     ------------------------------------------------------- */
 
-    function DirectionSection({ note, shots, approverName, hasLink, approved, onApprove }) {
-        return h(
-            "section",
-            { className: "cw-stage-section" },
-            h(
-                "div",
-                { className: "cw-head" },
-                h(Eyebrow, { num: "03", label: "THE LOOK AND THE SHOT PLAN" }),
-                h("h2", { className: "cw-h2" }, "Here's how I see it."),
-                h("p", { className: "cw-note" }, note, " ", h(Signature))
-            ),
-
-            h(
-                "div",
-                { className: "cw-shots" },
-                shots.map((shot, i) => {
-                    const num = pad(i)
-                    const image = shot.image?.src ? shot.image : undefined
-                    return h(
-                        "figure",
-                        { className: "cw-shot", key: i },
-                        h(
-                            "div",
-                            { className: "cw-panel", "data-image": image ? "true" : "false" },
-                            image
-                                ? h("img", { src: image.src, srcSet: image.srcSet, alt: image.alt ?? "", loading: "lazy" })
-                                : h("span", null, `SKETCH PANEL ${num}`)
-                        ),
-                        h(
-                            "figcaption",
-                            { className: "cw-shot-caption" },
-                            h("span", { className: "cw-shot-label" }, `SHOT ${num} · ${shot.duration}`),
-                            h("span", { className: "cw-shot-action" }, shot.action)
-                        )
-                    )
-                })
-            ),
-
-            h(
-                "div",
-                { className: "cw-lists" },
-                FIXED_AND_OPEN.map((list) =>
-                    h(
-                        "div",
-                        { className: "cw-list", key: list.label },
-                        h("span", { className: "cw-list-label" }, list.label),
-                        list.items.map((item) => h("span", { className: "cw-list-item", key: item }, item))
-                    )
-                )
-            ),
-
-            h(ReviewBlock, {
-                label: "ANYTHING YOU'D CHANGE?",
-                placeholder: "One note is fine.",
-                cta: "APPROVE THE DIRECTION",
-                after: "Once you approve, we build.",
-                approverName,
-                hasLink,
-                approved,
-                onApprove,
-            })
-        )
-    }
-
-    /* -------------------------------------------------------
-       BUILD — the review cut
-    ------------------------------------------------------- */
-
-    function BuildSection({ note, cut, approverName, hasLink, approved, onApprove }) {
+    function ReviewSection({ note, cut, approverName, hasLink, approved, onApprove }) {
         const [playing, setPlaying] = React.useState(false)
         const video = cut?.video
         const poster = cut?.poster?.src ? cut.poster : undefined
